@@ -1,0 +1,1922 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Self-hosted management for MikroTik fleets">
+      
+      
+      
+      
+        <link rel="prev" href="../topology/">
+      
+      
+        <link rel="next" href="../change-guard/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Traffic analytics - MikroTik Manager</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#traffic-analytics" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="MikroTik Manager" class="md-header__button md-logo" aria-label="MikroTik Manager" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MikroTik Manager
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Traffic analytics
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/2GT-Media-Group-LLC/mikrotik-manager" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    2GT-Media-Group-LLC/mikrotik-manager
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="MikroTik Manager" class="md-nav__button md-logo" aria-label="MikroTik Manager" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MikroTik Manager
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/2GT-Media-Group-LLC/mikrotik-manager" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    2GT-Media-Group-LLC/mikrotik-manager
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operating
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operating
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../devices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Devices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../clients/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Clients
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adoption/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adopting devices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sites
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topology/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Topology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Traffic analytics
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Traffic analytics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-collector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The collector
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The collector">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flows-from-unidentified-exporters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flows from unidentified exporters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-it-shows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What it shows
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../change-guard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Change Guard and Config Health
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security page
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../firewall-events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Firewall logs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sessions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sessions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scaling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polling and scaling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../alerting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Alerting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ssh-keys/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSH keys
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jump-hosts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jump hosts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bulk commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../firmware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Firmware rollouts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../backups/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backups
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-backup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backing up MikroTik Manager
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../certificates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Device certificates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Devices
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Devices
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wireless/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wireless
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../antenna-aligner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Antenna aligner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../network-services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-manager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Manager (RADIUS)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cellular/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cellular (LTE)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capsman/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CAPsMAN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Integration
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Integration
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API and automation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai-connections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI connections (MCP, OpenAPI)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sso-oidc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single sign-on (OIDC)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Contributing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-collector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The collector
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The collector">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flows-from-unidentified-exporters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flows from unidentified exporters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-it-shows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What it shows
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="traffic-analytics">Traffic analytics<a class="headerlink" href="#traffic-analytics" title="Permanent link">&para;</a></h1>
+<p>Per-client and per-application traffic, from a NetFlow collector built into the platform.</p>
+<h2 id="the-collector">The collector<a class="headerlink" href="#the-collector" title="Permanent link">&para;</a></h2>
+<p>The platform listens for <strong>NetFlow v9 and IPFIX on UDP 2055</strong>. There is no external collector
+to run. Point a device's exporter at the platform's address and flows start arriving.
+It accepts IPv4 and IPv6 exporters on the same port where the host's kernel has IPv6, and
+IPv4 only where it doesn't. A device exporting over IPv6 is recognised by its IPv6 address,
+however that address was written when the device was added.</p>
+<p>How flows are counted:</p>
+<ul>
+<li><strong>Deduplication.</strong> A flow crossing two managed routers is exported twice. It is counted once.</li>
+<li><strong>Exporters are identified by source address.</strong> A flow is taken as coming from the managed
+  device that owns its source address (its management address or any address on it).</li>
+<li><strong>Clients are matched within the exporter's site.</strong> A flow's addresses are matched to
+  clients seen in the same site as the exporting device, and the traffic is stored with that
+  site. Two customers both using 192.168.88.0/24 never have their traffic mixed.</li>
+</ul>
+<h3 id="flows-from-unidentified-exporters">Flows from unidentified exporters<a class="headerlink" href="#flows-from-unidentified-exporters" title="Permanent link">&para;</a></h3>
+<p>If NAT sits between your routers and the platform (common with Docker Desktop, or a router
+exporting through a firewall), flows arrive from the NAT gateway's address instead of the
+router's, and match no device. NetFlow has no authentication, so taking flows from addresses
+that aren't managed devices lets anything that can reach UDP 2055 send traffic figures.</p>
+<p>That is controlled by <strong>Accept flows from unidentified exporters</strong> on <strong>Network Services →
+NetFlow</strong> (fleet admins only):</p>
+<ul>
+<li><strong>Off</strong> (the default for new installs): such flows are refused, and the page lists the
+  addresses being refused so missing traffic isn't a mystery.</li>
+<li><strong>On</strong>: they are accepted, but only from private, CGNAT, link-local or loopback addresses,
+  which is where a NAT gateway in front of the platform would be. Flows from a public address
+  are always refused, and the page says so; seeing one means the collector is reachable from
+  outside your network (see <a href="../configuration/#network-exposure">Network exposure</a>).</li>
+</ul>
+<p>An unidentified exporter can't say which site it belongs to, so its flows are matched to a
+client only when the address exists in exactly one site. With a single site that is always
+the case. If the same addresses are in use at more than one site, those flows are counted in
+the all-sites view only.</p>
+<p>Installs from before 0.24.47 keep the setting they had, which was on.</p>
+<p>With accepting on, a router behind NAT is usually still recognised by when it booted: every
+NetFlow packet carries that time, and polling records it for each device. Its flows are then
+counted under its own name and site, as if they came from its address. Two routers that booted
+within 10 seconds of each other stay unidentified.</p>
+<p><strong>Network Services → NetFlow</strong> configures the exporters and the collector.</p>
+<h2 id="what-it-shows">What it shows<a class="headerlink" href="#what-it-shows" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>View</th>
+<th>Answers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Top Talkers</strong></td>
+<td>Which clients are using the most, over 1h → 30d</td>
+</tr>
+<tr>
+<td><strong>Application breakdown</strong></td>
+<td>HTTPS, QUIC, DNS, SSH, email, WireGuard and others, by port and protocol; click one to see who's using it</td>
+</tr>
+<tr>
+<td><strong>Per-client history</strong></td>
+<td>What one client has been doing over time</td>
+</tr>
+<tr>
+<td><strong>Time series</strong></td>
+<td>Throughput across the selected range</td>
+</tr>
+</tbody>
+</table>
+<p>Top Talkers can be filtered by IP, name, MAC or vendor, and sorted. Selecting a client opens
+its detail page — see <a href="../clients/">Clients</a>.</p>
+<p><strong>Unattributed (local)</strong> is traffic whose local end is a private, CGNAT or link-local address
+that MikroTik Manager can't match to a client it knows in that site, such as a host it hasn't
+seen in DHCP or ARP. Downloads through NAT are recorded as they arrive on the WAN, addressed to
+the router, and are counted for the LAN client from the post-NAT destination, so leave
+<code>nat-dst-address</code> on in the router's IPFIX settings (<strong>IP &gt; Traffic Flow &gt; IPFIX</strong>; it is on by
+default). Before 1.0.32 and 1.1.0-rc.4, a router whose WAN address is itself private (behind
+an ISP modem or CGNAT) had its downloads counted here instead (Discussion #486).</p>
+<p>Clicking an application in <strong>Traffic by Application</strong>, on the chart or its list, opens the
+clients behind it over the same range: each one's download, upload and share of that
+application's traffic, busiest first, up to 50 (from <a href="https://github.com/azizfayziev">@azizfayziev</a>'s</p>
+<h1 id="366-selecting-a-client-opens-its-page-the-charts-folded-other-slice-is-several">366). Selecting a client opens its page. The chart's folded <strong>Other</strong> slice is several<a class="headerlink" href="#366-selecting-a-client-opens-its-page-the-charts-folded-other-slice-is-several" title="Permanent link">&para;</a></h1>
+<p>applications together, so it doesn't open a list; the applications in it do, from the list.</p>
+<h3 id="zooming-in-on-a-time">Zooming in on a time<a class="headerlink" href="#zooming-in-on-a-time" title="Permanent link">&para;</a></h3>
+<p>To look into a spike, drag across it on the <strong>Network Traffic</strong> or <strong>Inbound Packets</strong> chart
+(from <a href="https://github.com/ronchan44">@ronchan44</a>'s #463). The whole page then covers just that
+window: the totals, both charts, Top Talkers, Traffic by Application and the clients behind an
+application, Top Destinations and the names looked up. A bar at the top shows the window, and
+<strong>Back to</strong> returns to the range you were on. Picking another range does the same.</p>
+<p>The charts redraw in finer steps for the window, down to a minute, so you can drag again to
+narrow it further. A window can be from a minute to 31 days long. A zoomed view doesn't
+refresh, since a window in the past doesn't change.</p>
+<p>Top Destinations and the names looked up are kept by the hour, so they cover every whole hour
+the window touches: a window from 20:15 to 20:45 shows the 20:00 to 21:00 hour. The bar says
+which hours when the window doesn't start and end on the hour.</p>
+<h3 id="where-traffic-goes">Where traffic goes<a class="headerlink" href="#where-traffic-goes" title="Permanent link">&para;</a></h3>
+<p>Each application's card has a second tab, <strong>Where it goes</strong>: the remote addresses that carried
+it, busiest first (#366). Under Top Talkers, <strong>Top Destinations</strong> does the same for all of
+the site's traffic; click one to see which clients used it. On a client's row, <strong>Where to</strong> lists
+that client's destinations for the application, and a client's page has <strong>Where it goes</strong> under
+its traffic.</p>
+<p>Each address is named by the organisation that owns it (Google, Telegram, Cloudflare...), with
+its country, AS number and reverse DNS name. Private, CGNAT and multicast addresses say so
+instead. The names come from the <a href="https://iptoasn.com">iptoasn.com</a> list (public domain): a copy
+is built into each release, and a newer one is downloaded weekly unless <strong>Settings → Dark Site
+Mode</strong> turns that off. An organisation is who owns the address, not always the service: a CDN
+such as Cloudflare or Akamai carries many sites. The name the client actually looked up comes from
+the sources under <a href="#names-for-addresses">Names for addresses</a>.</p>
+<p>To keep it small, each client keeps its busiest 20 addresses per application in each minute,
+counted by the hour; the rest are added together and shown as a total under the list. Only
+traffic between a client and an address outside the network is counted.</p>
+<p>Destinations start from when the manager began recording them, for a new install or right after
+the upgrade that added them, so for a while a 24-hour view holds only the hours since. The list
+then says when recording began, so the gap doesn't read as missing traffic.</p>
+<h3 id="names-looked-up-adguard-home-and-pi-hole">Names looked up (AdGuard Home and Pi-hole)<a class="headerlink" href="#names-looked-up-adguard-home-and-pi-hole" title="Permanent link">&para;</a></h3>
+<p>NetFlow carries addresses, not names. Add the servers that answer a site's DNS under
+<strong>Settings → DNS Query Log</strong> (fleet admins; fleet operators see it read-only): AdGuard Home or Pi-hole (version 6 or later), with
+the site whose clients use it, its web address and login. Add every one of them: two resolvers
+sharing the load each see their own part of the lookups, and the counts add up. <strong>Test</strong> checks
+the address and login first. MikroTik Manager then reads each query log every minute and keeps
+how often each client looked up each name, per hour, and how many of those were blocked.</p>
+<p>Then the <strong>DNS</strong> application has a <strong>Names looked up</strong> tab, each client's row under it shows
+that client's lookups, and a client's page has <strong>Names looked up</strong>.</p>
+<p>The servers see clients by address, so lookups are matched to clients through the addresses
+MikroTik Manager knows for them in that site. A client behind another NAT, or using a different
+resolver, isn't covered. Lookups the server makes itself (Pi-hole naming its clients) aren't
+counted. Passwords are stored encrypted, and changing the address or turning off the
+certificate check needs the password typed again, so a saved one is never sent to a server it
+wasn't saved for. Pi-hole logs in with a password alone; with two-factor login on, use an app
+password from Pi-hole's settings. The servers' own logs aren't copied, only the counts.</p>
+<p><strong>AdGuard Home as a Home Assistant add-on</strong> answers on its own port only once one is set:
+<strong>Settings → Add-ons → AdGuard Home → Configuration → Network → Web interface</strong> (for example
+3001), then restart the add-on. With the add-on's <strong>ssl</strong> option on, that port serves HTTPS and
+needs the certificate files in <code>/ssl</code>; without them the add-on doesn't start at all, DNS
+included, so turn <strong>ssl</strong> off (plain HTTP, for a manager on the same network) or add the
+certificates first. The address is then <code>http://&lt;Home Assistant address&gt;:3001</code>, and the login is
+a Home Assistant user: a separate one for the manager, without admin rights, is enough.</p>
+<h3 id="names-for-addresses">Names for addresses<a class="headerlink" href="#names-for-addresses" title="Permanent link">&para;</a></h3>
+<p>Destinations, <a href="../firewall-events/">Firewall Logs</a> (with names on) and Sessions show the name
+behind an address, from the best source there is:</p>
+<ol>
+<li><strong>AdGuard Home's answers:</strong> AdGuard logs the addresses each name answered with, so a
+   destination gets the domain the client asked for (<code>www.youtube.com</code> rather than just Google).
+   Pi-hole doesn't log answers.</li>
+<li><strong>Routers' DNS caches:</strong> a router that answers DNS for its network (<strong>IP &gt; DNS &gt; Allow Remote
+   Requests</strong>) holds the names it resolved and their addresses. MikroTik Manager reads the cache
+   of those routers every fast poll and names each address by the name that was asked, following
+   CNAMEs back (<code>www.netflix.com</code>, not <code>ftl-www.netflix.com</code>). This covers Pi-hole, or any
+   resolver that forwards to the router, but isn't per client. Switch it off under <strong>Settings →
+   Polling → Collectors</strong>.</li>
+<li><strong>Reverse DNS</strong> from the manager's own resolver, which for a CDN often names the server
+   rather than the site.</li>
+</ol>
+<p>A shared address (a CDN serving many sites) can carry several names; the most recent are shown.
+Names are kept for the days set for DNS lookups under <strong>Settings → General → Data Retention</strong>.</p>
+<p>With a site selected, every view shows that site's traffic only, and accounts limited to
+particular sites see only theirs. <strong>Flow Sources &amp; Data Health</strong> lists that site's exporting
+devices too; its packet and flow counts are the collector's own and cover every site.
+Unidentified exporters and refused sources belong to no site, so they're listed in the
+all-sites view only. Traffic recorded before 0.24.47 has no site, so on a
+multi-site install it appears in the all-sites view only. On a single-site install, or any
+selection that includes every device, nothing is filtered and all of it shows (0.24.48;
+0.24.47 hid it, and its site filter also made long ranges slow enough to time out).</p>
+<p>Application classification is by port and protocol. It identifies what a flow <em>looks</em> like, not
+what it is: anything on 443 reads as HTTPS whether or not it is a browser.</p>
+<p>Ports the built-in list doesn't know count as <strong>Other TCP</strong> or <strong>Other UDP</strong>. The port names
+added under <strong>Settings → Firewall Logs</strong> (<a href="../firewall-events/#application-and-row-colours">Port names</a>)
+name those too: add <code>udp 1198 OpenVPN</code> and a VPN on that port becomes an application of its own,
+in the chart, its clients and Where it goes, and its sessions read the right way round. A saved
+name never renames a port the built-in list already names (443 stays HTTPS), so the categories
+and their history don't change. New flows take a change within a minute; traffic already
+recorded keeps the name it had.</p>
+<p>Each chart remembers the time range you last picked, in this browser, rather than going back to
+its default (#331). That goes for the charts on device, client and port pages too.</p>
+<h2 id="retention">Retention<a class="headerlink" href="#retention" title="Permanent link">&para;</a></h2>
+<p>Four settings, under <strong>Settings → General → Data Retention</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Default</th>
+<th>Covers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>netflow_retention_days</code></td>
+<td>30</td>
+<td>Per-client time series (one-minute detail)</td>
+</tr>
+<tr>
+<td><code>netflow_daily_retention_days</code></td>
+<td>365</td>
+<td>Daily per-client rollups</td>
+</tr>
+<tr>
+<td><code>retention_destinations_days</code></td>
+<td>7</td>
+<td>Where traffic goes: per client, application and remote address, by hour</td>
+</tr>
+<tr>
+<td><code>retention_dns_days</code></td>
+<td>7</td>
+<td>Lookup counts and answers from AdGuard Home and Pi-hole, and names from routers' DNS caches</td>
+</tr>
+</tbody>
+</table>
+<p>Flow records are the bulky ones; the daily rollups are small and are what the longer ranges are
+drawn from. Raising the first is the expensive change.</p>
+<h2 id="proxy-usage">Proxy usage<a class="headerlink" href="#proxy-usage" title="Permanent link">&para;</a></h2>
+<p>If a router runs a proxy in a RouterOS container (3proxy, for example) that writes its access
+log as JSON to the device log, the dashboard shows a <strong>Proxy Usage</strong> card. It ranks the busiest
+<strong>Clients</strong>, authenticated <strong>Users</strong>, <strong>Destinations</strong>, and <strong>Denied</strong> attempts over 1 hour,
+24 hours, 7 days or 30 days, with a selector when there is more than one proxy. Clicking a row
+opens the matching lines on the Events page.</p>
+<p>The lines are read from the log the manager already collects, under the topics
+<code>container,info,debug</code>, so nothing extra runs on the device. The card only appears once such
+lines exist. Parsed records are kept for <strong>Proxy log retention</strong> days (Settings → General,
+30 by default). On the first start after updating, existing events are scanned once for proxy
+lines.</p>
+<p><code>GET /api/proxy/top?by=client|user|destination|denied&amp;range=1h|24h|7d|30d</code> and
+<code>GET /api/proxy/sources</code> serve the card. Contributed by thanhtrung5763 in #177.</p>
+<p>The 24h, 7d and 30d rankings read an hourly rollup (<code>proxy_usage_hourly</code>, one row per hour,
+device, proxy, port, client/user/destination and peer) that is updated as logs arrive, so
+they stay fast however many connections are stored; <strong>1h</strong> reads the stored connections and
+is exact to the minute. The rollup starts at the hour containing <em>now minus the range</em>, so
+a range can reach up to an hour further back. It is built from the stored connections in the
+background after the first start following an update, so startup is not held up (until it
+finishes, the card reads the stored connections directly; the instance list is filled the
+same way), and the last 48 hours are recomputed once a day to repair any drift. To go back to reading the stored connections,
+set the app setting <code>proxy_usage_rollup</code> to <code>false</code>.</p>
+<h2 id="if-no-data-appears">If no data appears<a class="headerlink" href="#if-no-data-appears" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Is the collector enabled? <code>netflow_enabled</code> in <strong>Settings</strong>.</li>
+<li>Is UDP 2055 reachable from the device? The platform must be reachable <em>from</em> the router,
+   which is not the same direction as the API connection.</li>
+<li>Does the exporter match a known device? If flows arrive from an address the platform cannot
+   match, they are refused unless <strong>Accept flows from unidentified exporters</strong> is on, and
+   always from a public address. The NetFlow page lists refused sources and why.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.top", "navigation.sections", "content.code.copy", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

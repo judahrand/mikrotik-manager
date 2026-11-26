@@ -1,0 +1,2498 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Self-hosted management for MikroTik fleets">
+      
+      
+      
+      
+        <link rel="prev" href="../antenna-aligner/">
+      
+      
+        <link rel="next" href="../user-manager/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Network services - MikroTik Manager</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#network-services" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="MikroTik Manager" class="md-header__button md-logo" aria-label="MikroTik Manager" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MikroTik Manager
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Network services
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/2GT-Media-Group-LLC/mikrotik-manager" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    2GT-Media-Group-LLC/mikrotik-manager
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="MikroTik Manager" class="md-nav__button md-logo" aria-label="MikroTik Manager" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MikroTik Manager
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/2GT-Media-Group-LLC/mikrotik-manager" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    2GT-Media-Group-LLC/mikrotik-manager
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operating
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operating
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../devices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Devices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../clients/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Clients
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adoption/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adopting devices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sites/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sites
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topology/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Topology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../traffic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Traffic analytics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../change-guard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Change Guard and Config Health
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security page
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../firewall-events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Firewall logs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sessions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sessions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scaling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polling and scaling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../alerting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Alerting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ssh-keys/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSH keys
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jump-hosts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jump hosts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bulk commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../firmware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Firmware rollouts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../backups/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backups
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../platform-backup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backing up MikroTik Manager
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../certificates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Device certificates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Devices
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Devices
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wireless/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wireless
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../antenna-aligner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Antenna aligner
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network services
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dhcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DHCP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DNS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ntp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NTP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wireguard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WireGuard
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="WireGuard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client-config-and-qr-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Client config and QR code
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Routing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tunnels-and-ppp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tunnels and PPP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tunnels and PPP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ppp-users-and-sessions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PPP users and sessions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mlag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MLAG
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#netinstall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Netinstall
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Netinstall">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installing-a-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installing a device
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logging-syslog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logging (syslog)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#netflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NetFlow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#discovery-and-snmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Discovery and SNMP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Discovery and SNMP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#applying-snmp-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Applying SNMP settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snmp-contact-and-location-per-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SNMP contact and location per device
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-manager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Manager (RADIUS)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cellular/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cellular (LTE)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capsman/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CAPsMAN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Integration
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Integration
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API and automation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai-connections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI connections (MCP, OpenAPI)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sso-oidc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Single sign-on (OIDC)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Contributing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dhcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DHCP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DNS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ntp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NTP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wireguard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WireGuard
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="WireGuard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client-config-and-qr-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Client config and QR code
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Routing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tunnels-and-ppp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tunnels and PPP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tunnels and PPP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ppp-users-and-sessions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PPP users and sessions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mlag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MLAG
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#netinstall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Netinstall
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Netinstall">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installing-a-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installing a device
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logging-syslog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logging (syslog)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#netflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NetFlow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#discovery-and-snmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Discovery and SNMP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Discovery and SNMP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#applying-snmp-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Applying SNMP settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snmp-contact-and-location-per-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SNMP contact and location per device
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="network-services">Network services<a class="headerlink" href="#network-services" title="Permanent link">&para;</a></h1>
+<p>DHCP, DNS, NTP, WireGuard, routing, tunnels and PPP, MLAG, logging, NetFlow and discovery, viewed across the fleet rather than
+one device at a time. <strong>Network Services → Overview</strong> is a table of which devices run what:
+search it, sort by any service, and click a row to open the device.</p>
+<p>The Overview and the NetFlow fleet view show what was last read from each device and when,
+refreshing anything older than ten minutes in the background; <strong>Refresh</strong> reads every device
+again. On a large fleet the page fills in over a few seconds rather than contacting every device
+at once (see <a href="../scaling/#pages-that-show-something-from-every-device">Scaling</a>).</p>
+<p>DHCP, DNS and NTP show one device at a time, chosen at the top of the page. When the selected
+site or group has only one device, it is chosen for you (from <a href="https://github.com/ronchan44">@ronchan44</a>'s #464), and
+so is the router for <strong>PPP Users and Sessions</strong> when there's only one.</p>
+<p>Most of it writes to the device (Routing, Tunnels &amp; PPP and MLAG only read). Changes go through <a href="../change-guard/">Change Guard</a> where
+they could affect reachability.</p>
+<h2 id="dhcp">DHCP<a class="headerlink" href="#dhcp" title="Permanent link">&para;</a></h2>
+<p>Servers, address pools and leases, per device. A lease list shows the first 100; <strong>Show all</strong>
+lists the rest.</p>
+<ul>
+<li><strong>IPv4 Static Leases</strong> lists a device's reservations: add one with <strong>Static</strong>, remove one with
+  its delete button. Dynamic leases are on the <a href="../clients/">Clients</a> page, which knows far more
+  about each client.</li>
+<li><strong>Pools</strong> and <strong>servers</strong> can be created, edited and removed.</li>
+<li>A static <strong>IPv6 binding</strong> is matched by the client's DUID, not its MAC address, and assigns
+  a prefix. Before 0.24.51 the form asked for a MAC address, which RouterOS refused.</li>
+</ul>
+<p>A DHCP server bound to an interface that later changes VLAN is a common way to hand out
+addresses on the wrong segment; the lease list is the quickest way to notice.</p>
+<p><strong>DHCP Pool Usage</strong>, at the top of the page (and on Wireless → Overview), shows how full every
+IPv4 address pool across the fleet is, read on each slow poll (#156): yellow from 80%, red from
+95%. A pool that runs out is a quiet failure, since clients connect but get no address, so
+a nearly full pool is also listed on the dashboard. Widen the range or shorten the lease
+time.</p>
+<h2 id="dns">DNS<a class="headerlink" href="#dns" title="Permanent link">&para;</a></h2>
+<p>The resolver configuration on each device, plus static entries.</p>
+<ul>
+<li><strong>Static DNS</strong> entries are managed per device, including regexp entries. The record types
+  are RouterOS's own: A, AAAA, CNAME, MX (with a preference), NS, TXT, SRV (with port,
+  priority and weight) and FWD (forward that name to another DNS server). RouterOS has no
+  static PTR record. Before 0.24.51 MX, NS and SRV targets went into the wrong field and the
+  record wasn't created.</li>
+<li><strong>Flush cache</strong> clears the resolver cache on a device, which is worth doing after changing
+  an upstream server or a static entry.</li>
+<li><strong>Upstream DNS servers</strong> are edited one entry at a time (#207): type an address and press
+  Enter, or paste a list; × removes one. Only IP addresses are accepted. A device's own DNS
+  servers, under its <strong>Config</strong> tab, work the same way.</li>
+<li><strong>DNS over HTTPS (DoH)</strong> (#468, 1.1): give the router a DoH server URL, such as
+  <code>https://cloudflare-dns.com/dns-query</code> or <code>https://dns.google/dns-query</code>, and it sends its
+  lookups there over HTTPS instead of to the upstream servers. Leave it empty for plain DNS.
+  The router still has to look up the DoH server's own name, so keep an upstream server (or a
+  static A record for that name); the page warns when there's neither. <strong>Verify the
+  server's certificate</strong> is recommended: recent RouterOS checks it against its built-in
+  trusted roots, and the page says when a router has none, in which case the server's CA
+  certificate has to be imported first or every lookup fails.</li>
+</ul>
+<h2 id="ntp">NTP<a class="headerlink" href="#ntp" title="Permanent link">&para;</a></h2>
+<p>Client and server configuration. Worth more attention than it usually gets: a device with the
+wrong clock produces logs that cannot be correlated, certificates that appear
+invalid — see <a href="../alerting/#certificate-expiry">Alerting</a> — and scheduled work that fires at
+the wrong time.</p>
+<p><strong>NTP servers</strong> are edited one entry at a time, like the DNS servers; addresses and host names
+(<code>pool.ntp.org</code>) are both accepted.</p>
+<p><a href="../devices/">Configuration templates</a> can push the same NTP servers to many devices at once.</p>
+<p>On RouterOS 6 the NTP server comes with the optional ntp package, so a stock device shows the
+client only. Its client takes up to two IP addresses plus any number of names, and its mode
+follows from the servers: unicast when some are set, broadcast when none are. Before 0.24.51
+saving NTP settings on such a device failed with an error 500.</p>
+<h2 id="wireguard">WireGuard<a class="headerlink" href="#wireguard" title="Permanent link">&para;</a></h2>
+<p>Interfaces and peers per device: create, edit, enable, disable and remove. Peer public keys and
+allowed addresses are shown so a tunnel can be checked against the far end without leaving the
+platform.</p>
+<p>Every device in the site that has WireGuard gets its own card. Devices without it are listed
+underneath; <strong>Show / add interface</strong> opens a card for one so an interface can be added.</p>
+<p>A peer's persistent keepalive is in seconds; leave it empty to turn keepalive off.</p>
+<h3 id="client-config-and-qr-code">Client config and QR code<a class="headerlink" href="#client-config-and-qr-code" title="Permanent link">&para;</a></h3>
+<p><strong>View</strong> (the eye) on a peer shows the client's <code>.conf</code> and a QR code to scan into the WireGuard
+app, when the router keeps the client's private key for that peer. Peers made with WinBox's
+WireGuard wizard do, and so do peers made here with <strong>Generate a client key pair now</strong> (#444):</p>
+<ul>
+<li>The key pair is made in your browser. The public key goes into the peer, and the private key
+  is saved on the router with the client's address, DNS and endpoint, as WinBox does. Anyone who
+  can read the router's configuration can read it.</li>
+<li><strong>Client endpoint host</strong> is where the client reaches this router. It starts as the management
+  address, which is often not the address the client should use, so check it. The router's
+  listen port is added unless you give one.</li>
+<li><strong>Client allowed IPs</strong> is what the client sends through the tunnel. Narrowing it from the
+  full tunnel needs RouterOS 7.21 or later.</li>
+<li>Turning it on when editing a peer replaces the peer's key, so the client using the old one
+  needs the new config.</li>
+</ul>
+<p>A peer whose private key isn't on the router has no config to show; View says so. Operators and
+admins see View; read-only accounts never receive private keys.</p>
+<h2 id="routing">Routing<a class="headerlink" href="#routing" title="Permanent link">&para;</a></h2>
+<p><strong>Network Services → Routing</strong> lists every BGP peer and OSPF neighbour across the fleet, or the
+selected site (#279): the device, the peer's address, AS or router ID, whether it's up, how long
+for, and when it last changed. Down peers are listed first. They're read with each device's slow
+poll, so a change shows up within that interval. Configure BGP and OSPF on a device's <strong>Routing</strong>
+tab, and turn on the <strong>Routing peer down</strong> alert (<a href="../alerting/">Alerting</a>) to be told when a
+session drops.</p>
+<ul>
+<li>
+<p><strong>BGP:</strong> one row per configured connection (a <code>peer</code> on RouterOS 6). It's up when its session
+  is established; a connection with no session is <em>idle</em>, one still trying is <em>connecting</em>, and a
+  disabled one is <em>disabled</em>.
+Adding a BGP connection on a device's Routing tab asks for the name, remote address, remote AS,
+role and local AS. On RouterOS 7.20 and later a connection belongs to a BGP instance, which
+carries the local AS: the device's instance is used (you choose when it has several), and on a
+device with none, one called <code>default</code> is created with the local AS you enter. On 7.0 to 7.19 the
+local AS goes on the connection itself, and on RouterOS 6 a peer is added. Before 0.59.1 adding a
+connection failed on 7.20 and later with <em>missing =instance=</em>.</p>
+</li>
+<li>
+<p><strong>OSPF:</strong> one row per neighbour. RouterOS forgets a neighbour once it stops hearing it, so the
+  manager keeps the last row and marks it <em>down</em>. A neighbour gone for a week is dropped from the
+  list. <em>2-Way</em> counts as up: on a LAN, two routers that are neither DR nor BDR stop there by
+  design.</p>
+</li>
+</ul>
+<h2 id="tunnels-and-ppp">Tunnels and PPP<a class="headerlink" href="#tunnels-and-ppp" title="Permanent link">&para;</a></h2>
+<p><strong>Network Services → Tunnels &amp; PPP</strong> lists, across the fleet or the selected site (#310), every
+IPsec peer, PPPoE server, PPPoE client, active PPP session, and EoIP, GRE and IPIP tunnel. It
+shows each one's local and remote address, its state, how long it's been up and when it last
+changed. Problems are listed first. Everything is read with each device's slow poll, in one
+batched request, so a change shows within that interval; <strong>Refresh</strong> asks for a fresh poll.
+Apart from PPP (below), set these up on the device.</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>One row per</th>
+<th>Up when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IPsec</td>
+<td>configured peer, including the dynamic ones an EoIP or GRE tunnel with an IPsec secret creates</td>
+<td>a peer that matches it is <em>established</em>. A passive peer with nobody connected is <em>waiting</em>, not down</td>
+</tr>
+<tr>
+<td>PPPoE server</td>
+<td>server (service name on an interface)</td>
+<td>it has sessions; with none it's <em>waiting</em></td>
+</tr>
+<tr>
+<td>PPP session</td>
+<td>active session in <code>/ppp active</code> (PPPoE, L2TP, SSTP, OpenVPN...)</td>
+<td>always: an ended session is removed</td>
+</tr>
+<tr>
+<td>PPPoE client</td>
+<td>client interface</td>
+<td>it's connected</td>
+</tr>
+<tr>
+<td>EoIP, GRE, IPIP</td>
+<td>tunnel interface</td>
+<td>it's running</td>
+</tr>
+</tbody>
+</table>
+<p>An active IPsec peer is matched to the configured peer whose address is the most specific match,
+as RouterOS does; a peer that takes many clients (<code>0.0.0.0/0</code>) shows how many are connected.
+RouterOS doesn't say which PPPoE server a session is on, so with more than one server the count
+covers all of them. Secrets (the IPsec secret on an EoIP or GRE tunnel) are never stored or
+shown, and PPP passwords aren't read at all. Up to 5,000 sessions are kept per device, and the page shows the first 500
+that match the filters.</p>
+<h3 id="ppp-users-and-sessions">PPP users and sessions<a class="headerlink" href="#ppp-users-and-sessions" title="Permanent link">&para;</a></h3>
+<p><strong>PPP Users and Sessions</strong>, at the top of the page, reads one router live: its PPPoE servers,
+who is connected, and its PPP users (<code>/ppp secret</code>). Choose the router, or press <strong>manage</strong> on
+a PPPoE server or PPP session row. Operators and admins can:</p>
+<ul>
+<li><strong>Disconnect</strong> a session. Its client usually dials straight back in; turn the user off first
+  to keep it out. A session whose address is a managed device asks again, since ending it cuts
+  the manager off from that device until it reconnects.</li>
+<li><strong>Turn a user off or on.</strong> Off stops it logging in; a session it already has stays up until
+  you disconnect it. Each user shows whether it is connected, its last caller and when it last
+  logged out.</li>
+<li><strong>Turn a PPPoE server off or on.</strong> Off ends every PPPoE session on the router, so it asks
+  first.</li>
+</ul>
+<p>User and server changes run under <a href="../change-guard/">Change Guard</a> and can be reviewed first;
+every action is in the audit log. Passwords aren't read.</p>
+<h2 id="mlag">MLAG<a class="headerlink" href="#mlag" title="Permanent link">&para;</a></h2>
+<p><strong>Network Services → MLAG</strong> shows each MLAG pair (#376), and is in the sidebar only once a device
+in view has a bridge with an MLAG peer port. For each pair: both peers' state, role, priority and
+settings, the peer link and how many of its members are up, and the MLAG bonds side by side by
+<code>mlag-id</code>, with the downstream device each one's LACP partner is. The two peers are found from
+neighbour discovery on the peer link, and the primary is shown on the left. It's read with the slow
+poll, and only on devices with MLAG.</p>
+<p>Between the two peers, the <strong>peer link</strong> has a block of its own, since it's the first thing to
+check when MLAG goes wrong:</p>
+<ul>
+<li><strong>Members side by side:</strong> each physical port of the peer link on both switches, up or down (and
+  "not active" when the link is up but LACP hasn't taken it), with the speed, RouterOS's link-downs
+  count and the errors in the last 24 hours. The two ends of each cable are paired from neighbour
+  discovery, or by name when discovery doesn't say.</li>
+<li><strong>VLANs carried</strong>, with VLAN 1 called out, since host sync needs it, and any VLAN that's on an
+  MLAG bond but missing from the peer link.</li>
+<li><strong>LACP partner:</strong> each side's partner should be the other peer. One that's something else means
+  the peer link is cabled to another device, which is a critical finding.</li>
+<li><strong>Last flap:</strong> the last time a member went down that the manager saw (it keeps 7 days), marked
+  <strong>(reboot)</strong> when one of the peers restarted around then, so a real flap stands out from a
+  maintenance window.</li>
+</ul>
+<p>A pair is <strong>critical</strong> when it has a critical finding, <strong>warning</strong> when it has only warnings, and
+<strong>healthy</strong> otherwise. A bond down on both peers that has never been seen up, for example one set up
+for a switch that isn't cabled yet, shows as grey <strong>unused</strong> and isn't a problem. A bond that has
+been up and is now down on both peers stays red, with a warning.</p>
+<p>It checks, worst first:</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Severity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A peer isn't <em>connected</em></td>
+<td>critical</td>
+</tr>
+<tr>
+<td>Both peers primary (split brain), or both secondary</td>
+<td>critical</td>
+</tr>
+<tr>
+<td>The peer link is down / some of its members aren't active</td>
+<td>critical / warning</td>
+</tr>
+<tr>
+<td>One <code>mlag-id</code> with different LACP partners on the two peers (cabled to two devices)</td>
+<td>critical</td>
+</tr>
+<tr>
+<td>The peer link's LACP partner isn't the other peer</td>
+<td>critical</td>
+</tr>
+<tr>
+<td>An <code>mlag-id</code> up on one peer only (single-homed)</td>
+<td>warning</td>
+</tr>
+<tr>
+<td>An <code>mlag-id</code> that was up, now down on both peers</td>
+<td>warning</td>
+</tr>
+<tr>
+<td>A VLAN on an MLAG bond that isn't tagged on the peer link, VLAN 1 included. Hosts in it can't sync between the peers: the "peer failed to sync" storm</td>
+<td>warning</td>
+</tr>
+<tr>
+<td><code>mlag-heartbeat</code>, <code>mlag-init-delay</code>, <code>mlag-lacp-fallback</code> or the RouterOS version differ</td>
+<td>warning</td>
+</tr>
+<tr>
+<td>State or role changed in the last 24 hours (the first value the manager reads doesn't count)</td>
+<td>warning</td>
+</tr>
+<tr>
+<td>Heartbeat timeouts in the last hour (critical over 30), host sync failures in the last hour, peer link down in the last 24 hours, from the devices' logs</td>
+<td>warning</td>
+</tr>
+</tbody>
+</table>
+<p>The <strong>MLAG degraded</strong> alert (<a href="../alerting/">Alerting</a>) reports critical findings. It's on by
+default, and does nothing on a fleet without MLAG.</p>
+<h2 id="netinstall">Netinstall<a class="headerlink" href="#netinstall" title="Permanent link">&para;</a></h2>
+<p><strong>Network Services → Netinstall</strong> reinstalls RouterOS on a device from a router running
+MikroTik's netinstall package (#310), instead of from a PC with the Netinstall tool. The package
+needs RouterOS 7.24 or later, and isn't made for SMIPS devices. The device being installed must be
+on the same layer 2 segment as that router, and etherboot to it. <strong>An install reformats that
+device</strong>: what's kept depends on the entry (below).</p>
+<p>Because of that, every change here (installing or removing the package, entries, the cache,
+starting an install) needs an admin for the router's site: a fleet admin, or a site admin there.
+Operators and viewers see the page read-only.</p>
+<p>The page lists the devices in view in three groups:</p>
+<ul>
+<li><strong>Netinstall servers</strong>: devices with the package installed. Each one is read live: its entries,
+  the devices that have etherbooted to it, and its cache.</li>
+<li><strong>Can run Netinstall</strong>: <strong>Install package</strong> installs it. The device reboots to do it, and
+  shows as a server once it's back and polled. Installing the package changes nothing else:
+  the device doesn't answer etherboot until an entry is added. <strong>Remove package</strong> on a server
+  takes it off again, also with a reboot. Either is refused while another package change is
+  waiting on the device, or when its flash is too full. When the device's last update check
+  found a newer RouterOS, RouterOS may install that too while it applies the change (a test
+  switch went from 7.25 to 7.25.1 this way), so the manager asks first. Tick <strong>Also upgrade
+  RouterOS</strong> to go ahead, or upgrade it from <a href="../firmware/">Firmware</a> first.</li>
+<li><strong>Can't run Netinstall</strong>: older than 7.24, SMIPS, or not polled yet.</li>
+</ul>
+<h3 id="entries">Entries<a class="headerlink" href="#entries" title="Permanent link">&para;</a></h3>
+<p>An entry makes the server answer etherboot on one interface. <strong>Every entry has to name the MAC
+address of the device it installs, or have Wait on</strong>, so each install is started from this page.
+Without either, any device on that segment that etherboots would be reformatted, so the manager
+refuses to save or enable one, and flags one made outside it in red. A new entry has Wait on and
+FlashFig off.</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MAC address</td>
+<td>Install only this device. RouterOS can't clear it later: delete the entry and add a new one</td>
+</tr>
+<tr>
+<td>Address range</td>
+<td>The addresses handed out while installing, at most 256</td>
+</tr>
+<tr>
+<td>RouterOS version</td>
+<td>Empty installs the latest in the server's update channel</td>
+</tr>
+<tr>
+<td>Extra packages</td>
+<td>Installed with RouterOS, which is always installed</td>
+</tr>
+<tr>
+<td>After installing</td>
+<td>Reboot, shut down, or do nothing</td>
+</tr>
+<tr>
+<td>Keep the old configuration</td>
+<td>Puts the device's configuration and users back after the install (files and containers aren't kept). Off with <strong>Apply the default configuration</strong> for a clean device</td>
+</tr>
+<tr>
+<td>Install each device only once</td>
+<td>Ignore a device again after it's been installed, until the server restarts</td>
+</tr>
+<tr>
+<td>Wait</td>
+<td>Hold each device that etherboots until its install is started here</td>
+</tr>
+<tr>
+<td>Answer etherboot / FlashFig</td>
+<td>What the entry responds to</td>
+</tr>
+</tbody>
+</table>
+<p>Entries are written under <a href="../change-guard/">Change Guard</a>, and <strong>Review changes</strong> shows the
+commands first. Script and mode files aren't offered yet.</p>
+<h3 id="installing-a-device">Installing a device<a class="headerlink" href="#installing-a-device" title="Permanent link">&para;</a></h3>
+<p>A device that etherboots to a server is listed under <strong>Devices seen</strong>, with its model,
+architecture and progress. The list refreshes every five seconds while it has devices in it.
+When the MAC address is one a managed device has, the device is named.
+<strong>Reinstall…</strong> starts the install. You can choose a version and packages, and it asks you to
+type the device's MAC address back first.</p>
+<h3 id="cache">Cache<a class="headerlink" href="#cache" title="Permanent link">&para;</a></h3>
+<p>Install files download from MikroTik when an install needs them. <strong>Download files</strong> fetches them
+first, so installs don't wait and work without internet access. The header shows where the
+cache is. On a device with a <code>flash</code> folder (a CRS309, say) the root folder is RAM, so files there
+use RAM and are gone after a reboot. On other devices they use flash. <strong>Cache folder</strong> points
+it at a disk instead, a USB drive or a RAM disk (<code>/disk add type=tmpfs</code>).</p>
+<p>Flash and RAM are never filled. Before an entry is enabled, files are downloaded or an install is
+started, the manager estimates the download (about 20 MB for RouterOS, plus the extra
+packages) and refuses when it wouldn't fit. It keeps 5% of flash free, and at least 32 MB of RAM.</p>
+<h2 id="logging-syslog">Logging (syslog)<a class="headerlink" href="#logging-syslog" title="Permanent link">&para;</a></h2>
+<p>Where each device sends its logs — remote actions and the rules that select which topics go to
+them. Rules can be toggled without deleting them.</p>
+<p>On current RouterOS 7, a remote action with a facility and severity is sent in syslog format
+(<code>remote-log-format=syslog</code>), and <strong>BSD syslog</strong> picks the BSD timestamp style over ISO 8601.
+Older RouterOS takes the same settings in its own form. The built-in actions (memory, disk,
+echo, remote) can be edited but not renamed or changed to another kind. Before 0.24.51 adding
+an action failed on every device.</p>
+<p>This is separate from the events the platform collects itself. The platform reads
+<code>/log/print</code> on its own cadence regardless of whether you forward logs anywhere.</p>
+<h2 id="netflow">NetFlow<a class="headerlink" href="#netflow" title="Permanent link">&para;</a></h2>
+<p>Configuration of the exporters on each device, and the collector built into the platform. See
+<a href="../traffic/">Traffic analytics</a> for what is done with the data.</p>
+<p>The <strong>Sessions</strong> switch on each device keeps one row per connection from its flows, on
+<strong>Security → <a href="../sessions/">Sessions</a></strong>. It is MikroTik Manager's own setting; nothing is written
+to the device.</p>
+<h2 id="discovery-and-snmp">Discovery and SNMP<a class="headerlink" href="#discovery-and-snmp" title="Permanent link">&para;</a></h2>
+<p>Neighbour discovery protocol settings (LLDP, CDP, MNDP) per device, and SNMP configuration.</p>
+<p>Discovery is what populates the topology map and finds devices to adopt. Turning it off on a
+device makes that device invisible to its neighbours — and this platform.</p>
+<p>The LLDP section covers every online device in the current site: routers, switches, wireless
+APs and anything else running RouterOS. Use the tabs to narrow it to one type. <strong>Enable</strong> and
+<strong>Disable</strong> only touch the devices listed.</p>
+<p>The API is <code>GET /api/network-services/lldp</code> and <code>PUT /api/network-services/lldp</code> with
+<code>{"enabled": true, "device_types": ["wireless_ap"]}</code>. Leave out <code>device_types</code> to target
+every type. The older <code>/api/routers/lldp</code> and <code>/api/switches/lldp</code> still work.</p>
+<h3 id="applying-snmp-settings">Applying SNMP settings<a class="headerlink" href="#applying-snmp-settings" title="Permanent link">&para;</a></h3>
+<p>The SNMP section covers every online device in the current site: routers, switches, wireless
+APs and anything else running RouterOS (it used to cover routers and switches only). Use the
+tabs to narrow the list to one type.</p>
+<p>Choose where a change goes with <strong>Choose devices</strong> (one or several, with Select all), then
+<strong>Apply to selected</strong>, or use <strong>Apply to all</strong>. Nothing is pushed automatically, and Apply
+asks you to confirm the exact changes and the devices they go to first.</p>
+<p><strong>The form shows what the chosen devices have now</strong>, or, with none chosen, what every listed
+device has. A setting they don't all share shows as <em>differs</em> (the slider sits in the middle)
+instead of a made-up default.</p>
+<p><strong>Only what you change is sent.</strong> The form remembers which fields you edited and
+highlights them; everything else is left as it is on each device, so setting a trap
+destination doesn't also rewrite each device's community or turn SNMP on or off. <strong>Reset</strong>
+discards your edits. A community name a device doesn't have is <strong>added</strong> next to its existing
+ones; nothing is renamed or removed. Before 0.24.37 the form was filled in from one device and every field was sent, so
+Apply copied that device's community, version and on/off state to the whole fleet, renaming
+each device's first community.</p>
+<p>For SNMPv3, leaving the privacy password blank keeps the current one and keeps the user
+encrypted. It used to drop the user to authentication only.</p>
+<p>The API is <code>GET /api/network-services/snmp</code> (every device type) and
+<code>PUT /api/network-services/snmp</code>, which needs <code>device_ids</code>: a list of device ids, or <code>"all"</code>
+(optionally with <code>device_types</code>). Only the settings in the body are changed, for example
+<code>{"device_ids": [8, 12], "trap_target": "10.0.0.5"}</code>. The older <code>/api/routers/snmp</code> and
+<code>/api/switches/snmp</code> still work.</p>
+<h3 id="snmp-contact-and-location-per-device">SNMP contact and location per device<a class="headerlink" href="#snmp-contact-and-location-per-device" title="Permanent link">&para;</a></h3>
+<p>Contact, location and trap target can use variables, filled in per device:</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{identity}</code></td>
+<td>RouterOS identity (<code>/system identity</code>). <code>{$systemidentity}</code> also works</td>
+</tr>
+<tr>
+<td><code>{name}</code></td>
+<td>Device name in the manager</td>
+</tr>
+<tr>
+<td><code>{ip}</code></td>
+<td>Management address</td>
+</tr>
+<tr>
+<td><code>{model}</code>, <code>{serial}</code></td>
+<td>From the device</td>
+</tr>
+<tr>
+<td><code>{site}</code></td>
+<td>Site name</td>
+</tr>
+<tr>
+<td><code>{location}</code></td>
+<td>The device's location, or its site's address if it has none</td>
+</tr>
+</tbody>
+</table>
+<p>For example, contact <code>{identity}@example.com</code> or location <code>{site} / {location}</code>. An unknown
+variable is rejected before anything is written.</p>
+<p>The form remembers the last contact, location and trap destination you applied, variables
+and all, and shows them when you come back (the table shows each device's filled-in value).
+A remembered value isn't sent unless you change it or press <strong>Send it</strong> under the field,
+which is how you apply the same template to devices added later.</p>
+<p>A blank field keeps each device's current value. Before 0.24.26 a blank field overwrote it
+with nothing.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.top", "navigation.sections", "content.code.copy", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
