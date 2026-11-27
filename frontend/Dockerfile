@@ -7,7 +7,6 @@
 #
 # Base images are pinned by digest; Dependabot updates them.
 
-# Stage 1: build the bundle
 FROM node:26-alpine@sha256:143494b1da2945f061539253adc65e4f1569ddf07da2d384c022c791a9d90a4a AS builder
 
 WORKDIR /frontend
@@ -18,7 +17,6 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-# Stage 2: serve the bundle
 FROM nginx/nginx-unprivileged:1.30-alpine@sha256:637c35e46af7bc0dd3d3bcf7162e004e13ab3b370fde7cd416e2ac410b5a985a
 
 COPY --from=builder /frontend/dist /usr/share/nginx/html
