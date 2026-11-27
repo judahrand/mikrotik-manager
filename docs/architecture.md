@@ -7,11 +7,12 @@ For contributors, and for anyone wanting to know what happens between the UI and
 ## The shape of it
 
 ```
-Browser ──► nginx ──► Express API ──► RouterOS API / SSH ──► devices
-                          │
-                          ├──► PostgreSQL   current state, config, users, audit
-                          ├──► InfluxDB     time-series metrics
-                          └──► Redis        job queue and locks
+Browser ──► nginx (TLS, edge) ──┬──► frontend (static SPA)
+                                └──► Express API ──► RouterOS API / SSH ──► devices
+                                          │
+                                          ├──► PostgreSQL   current state, config, users, audit
+                                          ├──► InfluxDB     time-series metrics
+                                          └──► Redis        job queue and locks
 ```
 
 Three data stores, because they answer different questions:
@@ -95,7 +96,7 @@ mikrotik-manager/
 │       └── utils/          # Crypto, OUI lookup, VLAN parsing
 │
 ├── docs/                   # This documentation
-├── nginx/                  # Reverse proxy config and Dockerfile
+├── nginx/                  # Edge config and Dockerfiles (edge + legacy all-in-one)
 ├── scripts/                # CI preflight and tooling
 ├── docker-compose.yml      # Build from source
 ├── docker-compose.ghcr.yml # Pre-built images — GENERATED, do not edit by hand

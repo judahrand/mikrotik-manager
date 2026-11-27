@@ -236,7 +236,7 @@ First run builds the frontend and backend, initialises PostgreSQL and InfluxDB, 
 self-signed TLS certificate. Accept the browser warning, or upload a real certificate under
 **Settings → TLS Certificate**.
 
-> **Updating:** `git pull && docker compose up -d --build backend nginx`. Migrations run automatically on startup. `main` is the stable channel; `git checkout dev` for betas of the next version. See [release channels](https://2gt-media-group-llc.github.io/mikrotik-manager/latest/configuration/#release-channels).
+> **Updating:** `git pull && docker compose up -d --build backend nginx frontend`. Migrations run automatically on startup. `main` is the stable channel; `git checkout dev` for betas of the next version. See [release channels](https://2gt-media-group-llc.github.io/mikrotik-manager/latest/configuration/#release-channels).
 
 ### If a device won't connect
 
@@ -368,7 +368,7 @@ Each network service supports multi-device management with conflict detection:
 - **Scheduled email reports** — daily, weekly or monthly HTML fleet summaries to any recipient list
 - **Credential presets** — shared device credentials, optionally restricted to admins only
 - **Encryption at rest** — device passwords encrypted with AES-256-GCM under a [self-healing key](docs/configuration.md#secret-management-self-healing)
-- **TLS** — self-signed certificate generated on first run, replaceable via the Settings UI; nginx terminates TLS and redirects HTTP
+- **TLS** — self-signed certificate generated on first run, replaceable via the Settings UI; the nginx edge terminates TLS, redirects HTTP and proxies the SPA from the frontend container
 
 ---
 
@@ -408,7 +408,7 @@ Deeper reference material lives at **[the documentation site](https://2gt-media-
 | **Data stores** | PostgreSQL 15, InfluxDB 2.7, Redis 7 + BullMQ |
 | **Real-time** | Socket.IO |
 | **Device comms** | RouterOS API (8728 / 8729), SSH2 |
-| **Proxy / container** | nginx, Docker Compose |
+| **Proxy / container** | nginx edge + static frontend, Docker Compose |
 
 ---
 

@@ -344,7 +344,9 @@ From 0.24.51 the containers run with less:
 - **backend**: every Linux capability dropped except `NET_RAW` (server-side ARP discovery), a
   read-only root filesystem, and a non-root user that owns only its data directories. It can
   write its volumes and `/tmp`, and nothing else.
-- **nginx**: only the capabilities it uses, and a read-only root filesystem.
+- **nginx** (edge): only the capabilities it uses, and a read-only root filesystem.
+- **frontend**: the non-root nginx unprivileged user, no capabilities, and a read-only root
+  filesystem; only `/tmp` is writable.
 - **Postgres, Redis, InfluxDB**: on the internal network only.
 - **Logs** from every container rotate at 10 MB, five files each.
 
@@ -514,11 +516,15 @@ so that's the address for `TRUSTED_PROXIES`.
 ## Updating and image versions
 
 Images are published to GHCR only after CI has passed on that commit:
-`ghcr.io/2gt-media-group-llc/mikrotik-manager-backend` and `…-nginx`. Each is tagged with
-its version (for example `1.0.0`) and `sha-<commit>`, and the newest build of each channel
-also carries `latest` (stable) or `beta` (see [Release channels](#release-channels)). The
-GHCR compose file uses `MTM_TAG` from `.env`, `latest` when it isn't set: set it to a version
-tag to stay on that version, or to `beta` for the beta channel.
+`ghcr.io/2gt-media-group-llc/mikrotik-manager-backend`, `…-frontend` and `…-proxy`. Each is
+tagged with its version (for example `1.0.0`) and `sha-<commit>`, and the newest build of each
+channel also carries `latest` (stable) or `beta` (see [Release channels](#release-channels)).
+The GHCR compose file uses `MTM_TAG` from `.env`, `latest` when it isn't set: set it to a
+version tag to stay on that version, or to `beta` for the beta channel.
+
+`…-proxy` is the nginx edge (TLS, ACME and the API/WebSocket proxy) and `…-frontend` serves
+the SPA. Compose files from before the split used the all-in-one `…-nginx` image; that image
+is still published unchanged for them, but new installs use `-proxy` and `-frontend`.
 
 **Update the compose file too, not only the images.** `docker compose pull` fetches new images
 but leaves your compose file as it was, and some releases add settings that only work if the
@@ -533,6 +539,8 @@ redirects. So when updating:
   then pull and start as above.
 
 To check that a setting arrived, ask the container: `docker compose exec nginx printenv TLS_MODE`.
+The web tier is two containers: `nginx` is the TLS/edge proxy and `frontend` serves the static
+SPA. `docker compose logs nginx frontend` shows both.
 
 ### The databases during an update
 

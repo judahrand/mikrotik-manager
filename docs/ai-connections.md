@@ -80,7 +80,7 @@ MCP resource.
 
 The manager needs outbound HTTPS to the provider. Any reverse proxy in front of the
 manager must pass on both `/api/mcp` and `/.well-known/oauth-protected-resource/api/mcp`
-and keep the public Host header, including a nonstandard port. The bundled nginx does.
+and keep the public Host header, including a nonstandard port. The bundled nginx edge does.
 
 ## Connecting a tool
 
