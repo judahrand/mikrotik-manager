@@ -58,6 +58,15 @@ else
     echo "set \$https_port_suffix \":$HTTPS_PORT\";" > /var/cache/nginx/https-port.conf
 fi
 
+# A frontend container restart can change its address. nginx re-resolves a
+# variable proxy_pass through this resolver, so use the runtime's nameserver
+# (Docker's embedded DNS is 127.0.0.11; podman uses the network gateway).
+FRONTEND_RESOLVER="$(awk '/^nameserver/ {print $2; exit}' /etc/resolv.conf 2>/dev/null || true)"
+case "$FRONTEND_RESOLVER" in
+    ''|*[!0-9a-fA-F:.]*) FRONTEND_RESOLVER=127.0.0.11 ;;
+esac
+echo "resolver $FRONTEND_RESOLVER valid=10s ipv6=off;" > /var/cache/nginx/frontend-resolver.conf
+
 # TLS_MODE (#256): "https" (the default) redirects port 80 to HTTPS; "proxy"
 # serves the app over plain HTTP on port 80, for a reverse proxy in front that
 # terminates TLS with your own certificate.

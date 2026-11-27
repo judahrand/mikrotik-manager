@@ -9,6 +9,9 @@
 #   sh nginx/tests/edge-proxy.sh <frontend-image> <edge-image>
 set -eu
 
+# A hung proxy must not hang CI; bound every request.
+curl() { command curl --max-time 5 "$@"; }
+
 frontend_image="${1:?usage: edge-proxy.sh <frontend-image> <edge-image>}"
 edge_image="${2:?usage: edge-proxy.sh <frontend-image> <edge-image>}"
 suffix="$$-$(date +%s)"
@@ -64,7 +67,7 @@ wait_for_exec() {
     container=$1 url=$2
     i=0
     while [ "$i" -lt 30 ]; do
-        if docker exec "$container" wget -qO- "$url" >/dev/null 2>&1; then
+        if docker exec "$container" wget -T 5 -qO- "$url" >/dev/null 2>&1; then
             return 0
         fi
         i=$((i + 1))
