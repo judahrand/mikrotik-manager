@@ -84,36 +84,27 @@ e2e_pg() {
   return $rc
 }
 
-# The static frontend image's SPA fallback, asset caching, 404 rule and headers.
-frontend_image() {
-  local tag="mtm-frontend-preflight-$$-$RANDOM"
-  docker build -q -t "$tag" frontend >/dev/null &&
-    sh frontend/tests/serve.sh "$tag"
+# The frontend and edge images together: SPA contract, API/Socket.IO routing,
+# and header pass-through.
+web_images() {
+  local fe="mtm-frontend-preflight-$$-$RANDOM"
+  local edge="mtm-edge-preflight-$$-$RANDOM"
+  docker build -q -t "$fe" frontend >/dev/null &&
+    docker build -q -f nginx/Dockerfile.edge -t "$edge" . >/dev/null &&
+    sh nginx/tests/edge-proxy.sh "$fe" "$edge"
   local rc=$?
-  docker image rm -f "$tag" >/dev/null 2>&1
-  return $rc
-}
-
-# The edge image's routing: SPA to the frontend, API and Socket.IO to backend.
-proxy_image() {
-  local tag="mtm-edge-preflight-$$-$RANDOM"
-  docker build -q -f nginx/Dockerfile.edge -t "$tag" . >/dev/null &&
-    sh nginx/tests/edge-proxy.sh "$tag"
-  local rc=$?
-  docker image rm -f "$tag" >/dev/null 2>&1
+  docker image rm -f "$fe" "$edge" >/dev/null 2>&1
   return $rc
 }
 
 if command -v docker >/dev/null 2>&1 && docker info >/dev/null 2>&1; then
   run "backend: Postgres tests"     backend  e2e_pg
   run "nginx: ACME entrypoint"      nginx    sh tests/run-acme-tests.sh
-  run "frontend: image"             .        frontend_image
-  run "proxy: edge routing"         .        proxy_image
+  run "web: images"                 .        web_images
 else
   printf '  %-34s%s\n' "backend: Postgres tests" "skipped (no Docker)"
   printf '  %-34s%s\n' "nginx: ACME entrypoint" "skipped (no Docker)"
-  printf '  %-34s%s\n' "frontend: image" "skipped (no Docker)"
-  printf '  %-34s%s\n' "proxy: edge routing" "skipped (no Docker)"
+  printf '  %-34s%s\n' "web: images" "skipped (no Docker)"
 fi
 run "frontend: lint"       frontend npm run lint
 run "frontend: type-check" frontend npx tsc --noEmit

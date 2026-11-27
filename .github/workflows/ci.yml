@@ -68,36 +68,24 @@ jobs:
       - name: Build
         run: npm run build
 
-  # The static image is what Compose serves. It has its own nginx
-  # rules (SPA fallback, immutable assets, 404 for missing assets, headers), so
-  # check the behaviour over HTTP rather than trusting the config to be read.
-  frontend-image:
-    name: Frontend image — SPA serving
+  # The frontend and edge images, together: the real frontend behind the real
+  # edge, with a stub backend. Checks the SPA contract directly and the routing
+  # and header pass-through through the edge.
+  web-images:
+    name: Web images — SPA serving and edge routing
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
-      - name: Build the image
+      - name: Build the frontend image
         run: docker build -t mtm-frontend:ci frontend
 
-      - name: Check SPA serving
-        run: sh frontend/tests/serve.sh mtm-frontend:ci
-
-  # The edge image in front of the frontend image. Its only job is routing:
-  # /api and /socket.io to the backend, everything else to the frontend.
-  proxy-image:
-    name: Proxy image — edge routing
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-
-      - name: Build the image
+      - name: Build the edge image
         run: docker build -f nginx/Dockerfile.edge -t mtm-edge:ci .
 
-      - name: Check routing
-        run: sh nginx/tests/edge-proxy.sh mtm-edge:ci
+      - name: Check the web tier
+        run: sh nginx/tests/edge-proxy.sh mtm-frontend:ci mtm-edge:ci
 
   backend:
     name: Backend — Lint, Type-check, Test & Build
