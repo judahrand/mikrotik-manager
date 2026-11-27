@@ -27,7 +27,7 @@ stub_image="nginx:alpine@sha256:713fc2ebfd92e8217db451477182ee91944b123d2b1ee9fd
 mkdir -p "$tmp/frontend" "$tmp/backend/api" "$tmp/certs"
 printf '<div id="root">stub-frontend</div>\n' > "$tmp/frontend/index.html"
 printf '{"status":"ok"}\n' > "$tmp/backend/api/health"
-printf 'server { listen 8080; root /www; }\n' > "$tmp/front.conf"
+printf 'server { listen 8080; root /www; add_header X-Stub-Frontend yes; }\n' > "$tmp/front.conf"
 printf 'server { listen 3001; root /www; }\n' > "$tmp/back.conf"
 
 docker network create "$network" >/dev/null
@@ -107,11 +107,20 @@ else
     no "/api is proxied to the backend"
 fi
 
-hsts="$(header_of "$base/" strict-transport-security)"
-if printf '%s' "$hsts" | grep -qi 'max-age=31536000'; then
-    ok "HSTS is set at the edge"
+# The frontend and API own the application headers; the edge must pass them
+# through and add none of its own.
+passed="$(header_of "$base/" x-stub-frontend)"
+if [ "$passed" = yes ]; then
+    ok "frontend headers are passed through"
 else
-    no "HSTS is set at the edge"
+    no "frontend headers are passed through (got '$passed')"
+fi
+
+csp="$(header_of "$base/" content-security-policy)"
+if [ -z "$csp" ]; then
+    ok "the edge adds no application headers"
+else
+    no "the edge adds no application headers (got '$csp')"
 fi
 
 # The frontend stub does not know /dashboard, so a 404 proves the edge did not
