@@ -32,9 +32,17 @@ const REGISTRY = 'ghcr.io/2gt-media-group-llc';
 /** The only intentional differences between the two files. */
 const IMAGE_SWAPS = [
   {
+    // The edge image. The legacy all-in-one mikrotik-manager-nginx image is
+    // still published for compose files written before the split, but no
+    // compose file here uses it.
     service: 'nginx',
-    buildPattern: /    build:\n      context: \.\n      dockerfile: nginx\/Dockerfile[\s\S]*?\n(?=    [a-z][\w-]*:)/g,
-    image: `    image: ${REGISTRY}/mikrotik-manager-nginx:\${MTM_TAG:-latest}\n`,
+    buildPattern: /    build:\n      context: \.\n(?:      #[^\n]*\n)*      dockerfile: nginx\/Dockerfile\.edge[\s\S]*?\n(?=    [a-z][\w-]*:)/g,
+    image: `    image: ${REGISTRY}/mikrotik-manager-proxy:\${MTM_TAG:-latest}\n`,
+  },
+  {
+    service: 'frontend',
+    buildPattern: /    build:\n      context: \.\/frontend\n      dockerfile: Dockerfile[\s\S]*?\n(?=    [a-z][\w-]*:)/g,
+    image: `    image: ${REGISTRY}/mikrotik-manager-frontend:\${MTM_TAG:-latest}\n`,
   },
   {
     service: 'backend',

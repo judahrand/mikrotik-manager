@@ -10,7 +10,10 @@ services:
   nginx:
     build:
       context: .
-      dockerfile: nginx/Dockerfile
+      # Edge only: TLS, ACME and proxying. Static files are served by the
+      # frontend service below. The old all-in-one image remains published as
+      # mikrotik-manager-nginx for compose files written before this split.
+      dockerfile: nginx/Dockerfile.edge
       args:
         HTTPS_PROXY: ${HTTPS_PROXY:-}
         https_proxy: ${HTTPS_PROXY:-}
@@ -39,6 +42,8 @@ services:
     depends_on:
       backend:
         condition: service_healthy
+      frontend:
+        condition: service_healthy
     restart: unless-stopped
     logging: *default-logging
     # Hardening (outside review O4): only the capabilities nginx and its
@@ -59,6 +64,32 @@ services:
       - /var/cache/nginx
       - /var/run
       - /tmp
+    networks:
+      - app-network
+
+  # The static React bundle. It has no TLS, ACME or API proxy; nginx proxies
+  # / here.
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        HTTPS_PROXY: ${HTTPS_PROXY:-}
+        https_proxy: ${HTTPS_PROXY:-}
+    restart: unless-stopped
+    logging: *default-logging
+    # nginx-unprivileged already runs as UID 101 and writes only /tmp.
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8080/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     networks:
       - app-network
 

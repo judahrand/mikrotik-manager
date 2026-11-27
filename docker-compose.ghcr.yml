@@ -18,7 +18,7 @@ x-logging: &default-logging
 
 services:
   nginx:
-    image: ghcr.io/2gt-media-group-llc/mikrotik-manager-nginx:${MTM_TAG:-latest}
+    image: ghcr.io/2gt-media-group-llc/mikrotik-manager-proxy:${MTM_TAG:-latest}
     ports:
       # BIND_ADDRESS limits the web UI to one host address (e.g. a LAN or VPN
       # address). Unset, it listens on every interface, IPv4 and IPv6. Docker
@@ -44,6 +44,8 @@ services:
     depends_on:
       backend:
         condition: service_healthy
+      frontend:
+        condition: service_healthy
     restart: unless-stopped
     logging: *default-logging
     # Hardening (outside review O4): only the capabilities nginx and its
@@ -64,6 +66,27 @@ services:
       - /var/cache/nginx
       - /var/run
       - /tmp
+    networks:
+      - app-network
+
+  # The static React bundle. It has no TLS, ACME or API proxy; nginx proxies
+  # / here.
+  frontend:
+    image: ghcr.io/2gt-media-group-llc/mikrotik-manager-frontend:${MTM_TAG:-latest}
+    restart: unless-stopped
+    logging: *default-logging
+    # nginx-unprivileged already runs as UID 101 and writes only /tmp.
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8080/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     networks:
       - app-network
 
