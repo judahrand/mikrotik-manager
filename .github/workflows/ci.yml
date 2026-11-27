@@ -84,6 +84,21 @@ jobs:
       - name: Check SPA serving
         run: sh frontend/tests/serve.sh mtm-frontend:ci
 
+  # The edge image in front of the frontend image. Its only job is routing:
+  # /api and /socket.io to the backend, everything else to the frontend.
+  proxy-image:
+    name: Proxy image — edge routing
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Build the image
+        run: docker build -f nginx/Dockerfile.edge -t mtm-edge:ci .
+
+      - name: Check routing
+        run: sh nginx/tests/edge-proxy.sh mtm-edge:ci
+
   backend:
     name: Backend — Lint, Type-check, Test & Build
     runs-on: ubuntu-latest

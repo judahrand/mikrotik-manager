@@ -1,3 +1,8 @@
+# LEGACY all-in-one image: edge plus the static frontend. It is kept, unchanged,
+# so Compose files written before the frontend-service split keep working. New
+# installs use nginx/Dockerfile.edge (mikrotik-manager-proxy) and the frontend
+# image instead. Do not add features here.
+#
 # Stage 1: Build the React frontend
 # Base images pinned by digest (outside review O2); Dependabot updates them.
 FROM node:26-alpine@sha256:143494b1da2945f061539253adc65e4f1569ddf07da2d384c022c791a9d90a4a AS frontend-builder
