@@ -190,6 +190,14 @@ here; the beta entries below have every change, release by release.
 - New major versions underneath: Express 5, BullMQ, openid-client 6, recharts 3, zustand 5 and
   TypeScript 6, and property-based fuzz tests on code that reads outside input.
 
+**Deployment**
+
+- The static SPA runs in its own `frontend` container, an unprivileged nginx image. The
+  `nginx` container is now the edge: TLS, ACME and the API/WebSocket proxy.
+- New images: `mikrotik-manager-frontend` and `mikrotik-manager-proxy`. The all-in-one
+  `mikrotik-manager-nginx` image is still published unchanged, so compose files written
+  before the split keep working.
+
 ### Changes you may notice
 
 - **Who sees Settings.** Admins change everything. Fleet operators see every Settings tab
@@ -203,6 +211,9 @@ here; the beta entries below have every change, release by release.
 - **Menu**: Firewall Logs and Sessions moved under **Security**.
 - **Zones fold their rules away.** With zones on, a device's Firewall tab reads as zones; the
   chains and jumps that carry them out are behind **Show RouterOS rules**.
+- **Compose runs one more web container.** `frontend` serves the SPA and `nginx` is the edge.
+  `docker compose logs nginx frontend` shows both. A compose file from before the split still
+  starts with the 1.1 images, using the legacy all-in-one nginx image.
 
 ### Upgrading from 1.0
 
@@ -210,7 +221,9 @@ here; the beta entries below have every change, release by release.
    (**Settings → Backup & Restore**).
 2. Get the 1.1 compose file as well as the images, and keep your `.env`
    ([Updating and image versions](configuration.md#updating-and-image-versions)). A 1.0 compose
-   file with 1.1 images also starts, so an update half done isn't stuck.
+   file with 1.1 images also starts, so an update half done isn't stuck. The 1.1 file adds the
+   `frontend` service and uses the `-proxy` image for the `nginx` service; the old file keeps
+   using the legacy `-nginx` image.
 3. Start it. Database migrations run on their own. PostgreSQL and Redis restart once, because
    1.1's compose file pins newer builds of their images (still PostgreSQL 15 and Redis 7).
 
