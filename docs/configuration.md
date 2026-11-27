@@ -18,6 +18,7 @@ Set in `.env` at the project root. Changing any of these requires a container re
 | `INFLUXDB_ADMIN_PASSWORD` | `admin_password_123` | InfluxDB admin UI password |
 | `REDIS_PASSWORD` | *none* | Makes Redis require a password. Can be set or changed at any time |
 | `PASSWORD_LOGIN` | `true` | `false` makes sign-in SSO-only. See [SSO-only sign-in](sso-oidc.md#behaviour-and-safety) |
+| `OIDC_BOOTSTRAP_FILE` | unset | Backend path to a mounted JSON secret for [first-time OIDC configuration](sso-oidc.md#bootstrap-from-a-mounted-file) |
 | `HTTP_PORT` | `80` | Host port for HTTP (redirects to HTTPS, or serves the app with `TLS_MODE=proxy`) |
 | `HTTPS_PORT` | `443` | Host port for HTTPS |
 | `HTTPS_PROXY` | *unset* | Optional proxy URL passed to `npm` and `apk` while building source images |

@@ -51,6 +51,7 @@ import { corsMiddlewareOptions, socketIoCorsOptions } from './utils/corsOrigins'
 import authRoutes from './routes/auth';
 import timeFormatRoutes from './routes/timeFormat';
 import oidcRoutes from './routes/oidc';
+import { bootstrapOidcConfig } from './services/oidc/oidcBootstrap';
 import auditLogRoutes from './routes/auditLog';
 import tagsRoutes from './routes/tags';
 import maintenanceWindowsRoutes from './routes/maintenanceWindows';
@@ -591,9 +592,11 @@ async function start(): Promise<void> {
   // Then the key was lost, and a freshly generated one must not be saved over
   // the problem (outside review P2-29). Otherwise save any new key and move
   // old ciphertext forward to the current key in the background.
+  let encryptionKeyVerified = false;
   try {
     const unreadable = await countUnreadable();
     const { lost } = confirmEncryptionKey(unreadable);
+    encryptionKeyVerified = !lost;
     if (lost) {
       console.error(
         `[secrets] ${unreadable} stored credential(s) can't be decrypted with any known key. The encryption key ` +
@@ -609,6 +612,7 @@ async function start(): Promise<void> {
   } catch (e) {
     console.warn('[secrets] could not check stored credentials:', (e as Error).message);
   }
+  await bootstrapOidcConfig(process.env.OIDC_BOOTSTRAP_FILE, encryptionKeyVerified);
 
   // Guards left 'pending' belong to a manager that stopped mid-change; the device
   // has since restored itself, so settle those rows.

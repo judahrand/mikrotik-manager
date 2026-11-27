@@ -93,6 +93,7 @@ services:
       # effect only while SSO is configured; set it back to true to get in if
       # SSO breaks. See docs/sso-oidc.md.
       PASSWORD_LOGIN: ${PASSWORD_LOGIN:-true}
+      OIDC_BOOTSTRAP_FILE: ${OIDC_BOOTSTRAP_FILE:-}
       # ACME defaults are read by the admin UI when no web override is saved.
       ACME_DOMAIN: ${ACME_DOMAIN:-}
       ACME_EMAIL: ${ACME_EMAIL:-}

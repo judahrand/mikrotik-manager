@@ -9,8 +9,8 @@ Authorization Code flow with PKCE. The server validates the ID token (JWKS signa
 `iss`, `aud`, `exp` and `nonce`) and then issues the platform's normal session, so SSO
 users get the same experience as local ones.
 
-**No environment variables and no redeploy** — everything is configured in the UI, with
-the client secret encrypted at rest.
+Configure SSO in the UI without a redeploy, or supply a bootstrap file for a fresh
+installation. The client secret is encrypted at rest.
 
 ## 1. Register the application with your provider
 
@@ -50,6 +50,50 @@ As an admin, go to **Settings → SSO / OIDC**.
 | **Button label** | Text on the login button, e.g. "Sign in with Okta". |
 
 Enable it and save. A **Sign in with SSO** button appears on the login page.
+
+### Bootstrap from a mounted file
+
+Mount a read-only JSON file into the backend and set `OIDC_BOOTSTRAP_FILE` to its
+path inside the container, such as `/run/secrets/oidc.json`. Store the file as a
+deployment secret. The JSON keys match the OIDC settings, with the same defaults
+for omitted fields. For example:
+
+```json
+{
+  "enabled": true,
+  "issuer_url": "https://idp.example.com",
+  "client_id": "mikrotik-manager",
+  "client_secret": "<client secret>",
+  "public_base_url": "https://manager.example.com"
+}
+```
+
+With Compose, set `OIDC_BOOTSTRAP_FILE=/run/secrets/oidc.json` in the project-root
+`.env` and mount the JSON file using an override alongside either shipped Compose
+file. Save this example as `compose.oidc.yml`.
+
+```yaml
+services:
+  backend:
+    volumes:
+      - ./secrets/oidc.json:/run/secrets/oidc.json:ro
+```
+
+Run `docker compose -f docker-compose.yml -f compose.oidc.yml up -d`. Use
+`docker-compose.ghcr.yml` in place of `docker-compose.yml` for prebuilt images.
+
+Enabled SSO requires an HTTP or HTTPS issuer URL and a client ID. If set,
+`public_base_url` must be an absolute HTTP or HTTPS URL without credentials,
+a query, or a fragment. Leave it empty to derive the callback URL from the
+request. Omit `client_secret` for a public client. To grant admin access, map a
+specific IdP group to `admin` in `group_role_map`. The fallback `default_role` can
+be `viewer` or `operator`.
+
+The backend reads the file on startup only if PostgreSQL has no saved OIDC
+settings. If the import fails, startup stops with a redacted error. Once the
+settings exist, use **Settings → SSO / OIDC** to make changes and rotate the
+client secret. Those changes survive restarts with the file still mounted.
+Keep `PASSWORD_LOGIN=true` and retain the local admin account for recovery.
 
 ## Behaviour and safety
 

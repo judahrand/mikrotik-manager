@@ -18,7 +18,7 @@ import { sessionResponse } from '../utils/sessionResponse';
 import { requireAuth, requireAdmin, requireSettingsRead } from '../middleware/auth';
 import { rateLimitRedis } from '../middleware/rateLimitRedis';
 import {
-  loadOidcConfig, saveOidcConfig, maskedConfig, APP_ROLES, type AppRole, type OidcConfig,
+  loadOidcConfig, saveOidcConfig, maskedConfig, validateOidcConfigPatch, type OidcConfig,
 } from '../services/oidc/oidcConfig';
 import {
   beginLogin, completeLogin, resetOidcClientCache, bindingHash, discoverProvider, oidcErrorMessage,
@@ -169,28 +169,8 @@ router.get('/config', requireAuth, requireSettingsRead, async (req, res) => {
 router.put('/config', requireAuth, requireAdmin, async (req, res) => {
   const body = req.body as Partial<OidcConfig> & { client_secret?: string };
 
-  const validRole = (r: unknown): r is AppRole => APP_ROLES.includes(r as AppRole);
-  if (body.default_role !== undefined) {
-    if (!validRole(body.default_role)) {
-      return res.status(400).json({ error: 'Invalid default_role' });
-    }
-    // Auto-provisioning strangers straight to admin is almost never intended —
-    // admin must be granted via an explicit group mapping, not the fallback.
-    if (body.default_role === 'admin') {
-      return res.status(400).json({ error: 'default_role cannot be admin — grant admin via an explicit group → role mapping instead' });
-    }
-  }
-  if (body.group_role_map !== undefined) {
-    if (typeof body.group_role_map !== 'object' || body.group_role_map === null) {
-      return res.status(400).json({ error: 'group_role_map must be an object' });
-    }
-    for (const r of Object.values(body.group_role_map)) {
-      if (!validRole(r)) return res.status(400).json({ error: `Invalid role in group_role_map: ${String(r)}` });
-    }
-  }
-  if (body.enabled && body.issuer_url !== undefined) {
-    try { new URL(body.issuer_url); } catch { return res.status(400).json({ error: 'issuer_url must be a valid URL' }); }
-  }
+  const error = validateOidcConfigPatch(body);
+  if (error) return res.status(400).json({ error });
 
   // An admin signed in through SSO has no local password: turning SSO off, or
   // pointing it at another provider, would lock them out on their next

@@ -51,32 +51,61 @@ export const DEFAULT_OIDC_CONFIG: OidcConfig = {
   public_base_url: '',
 };
 
-export async function loadOidcConfig(): Promise<OidcConfig> {
-  const row = await queryOne<{ value: Partial<OidcConfig> }>(
+export function loadOidcConfigRow(): Promise<{ value: Partial<OidcConfig> } | null> {
+  return queryOne<{ value: Partial<OidcConfig> }>(
     `SELECT value FROM app_settings WHERE key = $1`,
     [OIDC_SETTINGS_KEY]
   );
+}
+
+export async function loadOidcConfig(): Promise<OidcConfig> {
+  const row = await loadOidcConfigRow();
   return { ...DEFAULT_OIDC_CONFIG, ...(row?.value ?? {}) };
+}
+
+export function validateOidcConfigPatch(body: Partial<OidcConfig>): string | undefined {
+  const validRole = (role: unknown): role is AppRole => APP_ROLES.includes(role as AppRole);
+  if (body.default_role !== undefined) {
+    if (!validRole(body.default_role)) return 'Invalid default_role';
+    // Admin must be granted by an explicit group mapping.
+    if (body.default_role === 'admin') {
+      return 'default_role cannot be admin — grant admin via an explicit group → role mapping instead';
+    }
+  }
+  if (body.group_role_map !== undefined) {
+    if (typeof body.group_role_map !== 'object' || body.group_role_map === null) {
+      return 'group_role_map must be an object';
+    }
+    for (const role of Object.values(body.group_role_map)) {
+      if (!validRole(role)) return `Invalid role in group_role_map: ${String(role)}`;
+    }
+  }
+  if (body.enabled && body.issuer_url !== undefined) {
+    try { new URL(body.issuer_url); } catch { return 'issuer_url must be a valid URL'; }
+  }
 }
 
 /**
  * Persist config. `newSecret` (plaintext) is encrypted and stored; pass undefined
- * to keep the existing secret, or '' to clear it.
+ * to keep the existing secret, or '' to clear it. Bootstrap uses onlyIfAbsent
+ * so a concurrent write through Settings wins.
  */
 export async function saveOidcConfig(
   patch: Partial<OidcConfig>,
-  newSecret?: string
+  newSecret?: string,
+  onlyIfAbsent = false
 ): Promise<OidcConfig> {
-  const current = await loadOidcConfig();
+  const current = onlyIfAbsent ? DEFAULT_OIDC_CONFIG : await loadOidcConfig();
   const merged: OidcConfig = { ...current, ...patch };
 
   if (newSecret !== undefined) {
     merged.client_secret_encrypted = newSecret ? encrypt(newSecret) : null;
   }
 
+  const onConflict = onlyIfAbsent ? 'NOTHING' : 'UPDATE SET value = $2, updated_at = NOW()';
   await query(
     `INSERT INTO app_settings (key, value, updated_at) VALUES ($1, $2, NOW())
-     ON CONFLICT (key) DO UPDATE SET value = $2, updated_at = NOW()`,
+     ON CONFLICT (key) DO ${onConflict}`,
     [OIDC_SETTINGS_KEY, JSON.stringify(merged)]
   );
   return merged;
